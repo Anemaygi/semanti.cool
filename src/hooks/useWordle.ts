@@ -39,15 +39,13 @@ const useWordle = (solution: string) => {
   const [history, setHistory] =  useState<string[]>([]) 
   const [isCorrect, setIsCorrect] = useState(false)
   const [letters, setLetters] = useState(keys);
-//   const [usedKeys, setUsedKeys] = useState<{ [key: string]: string }>({})
 
 function removeAccents(str:string) {
     return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
   } 
 
   const formatGuess = () => {
-    let solutionArray: any[] = [...removeAccents(solution).toUpperCase()]
-
+    let solutionArray: (string | null)[] = [...removeAccents(solution).toUpperCase()]
     let formattedGuess = [...currentGuess].map((l) => {
       return {key: l, color: 'grey'}
     })
@@ -105,7 +103,7 @@ function removeAccents(str:string) {
     setCurrentGuess('')
   }
 
-  const handleKeyup = ({ key }: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyup = ({ key }: KeyboardEvent) => {
     
     if(key==='Enter'){
 
@@ -133,7 +131,6 @@ function removeAccents(str:string) {
                 return prev + key.toUpperCase()
             })
         }
-        console.log(key)
     }
     if (key === "Backspace" && currentGuess.length>=1){
         setCurrentGuess((prev)=>{

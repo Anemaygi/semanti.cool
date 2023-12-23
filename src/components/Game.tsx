@@ -26,11 +26,9 @@ const Game: React.FC<WordleProps> = ({ solution }) => {
     }
 
     return () => window.removeEventListener('keyup', handleKeyup)
-  }, [handleKeyup, isCorrect, turn])
+  }, [handleKeyup, isCorrect, turn, clickKey])
 
-  // useEffect(() => {
-  //   console.log(guesses, turn, isCorrect)
-  // }, [guesses, turn, isCorrect])
+
 
   return (
     <div>

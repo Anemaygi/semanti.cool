@@ -14,7 +14,7 @@ const Row: React.FC<RowProps> = ({guess, currentGuess}) =>{
     if (guess){
         return (
             <div className="text-center flex justify-center">
-            {guess.map((l: any,i: any)=>{
+            {guess.map((l: {key:string, color:string},i: number)=>{
                 const color = l.color == "yellow" ? 'bg-yellow-300' : l.color == "green" ? 'bg-green-300' : 'bg-gray-300';
                                 
                 return <div className={`${color} flex items-center justify-center w-12 h-12 border border-gray-300 mx-1 my-4 text-centers uppercase font-semibold`} key={i}>{l.key}</div>
