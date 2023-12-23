@@ -9,7 +9,7 @@ interface WordleProps {
 
 const Game: React.FC<WordleProps> = ({ solution }) => {
 
-  const { currentGuess, handleKeyup, guesses, isCorrect, turn} = useWordle(solution)
+  const { currentGuess, handleKeyup, guesses, isCorrect, turn, letters, clickKey} = useWordle(solution)
 
   useEffect(() => {
     window.addEventListener('keyup', handleKeyup)
@@ -37,7 +37,7 @@ const Game: React.FC<WordleProps> = ({ solution }) => {
       Wordle: {solution}
       <p>Current guess - {currentGuess}</p>
       <Grid currentGuess={currentGuess} guesses={guesses} turn={turn} />
-      <Keyboard />
+      <Keyboard letters={letters} onClickKey={clickKey}/>
     </div>
   );
 };

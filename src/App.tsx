@@ -5,7 +5,7 @@ import Game from './components/Game';
 
 function App() {
   const [solution, setSolution] = useState("");
-  
+ 
   useEffect(() => {
     const randomWord = wordsData.solutions[Math.floor(Math.random() * wordsData.solutions.length)];
     setSolution(randomWord);

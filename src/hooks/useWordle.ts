@@ -1,5 +1,6 @@
 import { useState } from 'react'
 
+
 const keys = [
     { key: 'q', color: 'bg-gray-200' },
     { key: 'w', color: 'bg-gray-200' },
@@ -70,7 +71,7 @@ function removeAccents(str:string) {
   }
 
 
-  const addNewGuess = (formattedGuess: object) => {
+  const addNewGuess = (formattedGuess: Array<{key: string, color: string}>) => {
     if (currentGuess.toLowerCase() === solution){
         setIsCorrect(true)
     }
@@ -85,39 +86,22 @@ function removeAccents(str:string) {
     setTurn((prevTurn) => {
         return prevTurn+1
     })
-    console.log("giane ->", formattedGuess)
 
-    // setLetters((prev) => {
-    //     let newKeys = [...prev]
-        
-    //     formattedGuess.map(wordl => {
-    //         console.log(wordl)
-    //         // TO DO
-    //     })
+    setLetters((prev) => {
+        let newKeys = [...prev]
 
-    //     return newKeys
-    // })
-    // setUsedKeys((prevUsedKeys) => {
-    //     let newKeys = {...prevUsedKeys}
-        
-    //     Object.entries(formattedGuess).forEach((letter:any)=>{
-    //         const currentColor = newKeys[letter.key]
-    //         if (letter.color === 'green'){
-    //             newKeys[letter.key] = 'bg-green-300'
-    //             return
-    //         }
-    //         if (letter.color === 'yellow' && currentColor !== 'green'){
-    //             newKeys[letter.key] = 'bg-yellow-300'
-    //             return
-    //         }
-    //         if (letter.color === 'grey' && currentColor !== 'green' && currentColor !== 'yellow'){
-    //             newKeys[letter.key] = 'bg-gray-600'
-    //             return
-    //         }
-    //     })
-    //     console.log("a"+newKeys["E"])
-    //     return newKeys
-    // })
+        formattedGuess.map((letter: { key: string; color: string })=>{
+            const searchLetter = letter.key.toLowerCase()
+            const idx = newKeys.findIndex((item) => item.key === searchLetter);
+            const currentColor = newKeys[idx].color
+            let newColor = currentColor
+            if (letter.color == "green") newColor="bg-green-300"
+            if (letter.color == "yellow" && currentColor != "bg-green-300") newColor="bg-yellow-300"
+            if (letter.color === "grey" && currentColor != "bg-green-300" && currentColor != "bg-yellow-300") newColor="bg-gray-600"
+            newKeys[idx] = { key: searchLetter, color: newColor }
+        })
+        return newKeys
+    })
     setCurrentGuess('')
   }
 
