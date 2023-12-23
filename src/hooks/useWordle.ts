@@ -20,7 +20,7 @@ const keys = [
     { key: 'j', color: 'bg-gray-200' },
     { key: 'k', color: 'bg-gray-200' },
     { key: 'l', color: 'bg-gray-200' },
-    { key: 'ENTER', color: 'bg-gray-200' },
+    { key: 'Enter', color: 'bg-gray-200' },
     { key: 'z', color: 'bg-gray-200' },
     { key: 'x', color: 'bg-gray-200' },
     { key: 'c', color: 'bg-gray-200' },
@@ -28,7 +28,7 @@ const keys = [
     { key: 'b', color: 'bg-gray-200' },
     { key: 'n', color: 'bg-gray-200' },
     { key: 'm', color: 'bg-gray-200' },
-    { key: 'BACKSPACE', color: 'bg-gray-200' },
+    { key: 'Backspace', color: 'bg-gray-200' },
 ]
 
 const useWordle = (solution: string) => {
@@ -158,7 +158,44 @@ function removeAccents(str:string) {
     }
   }
 
-  return {turn, currentGuess, guesses, isCorrect, handleKeyup, letters} // N ESQUECER DO  usedKeys
+
+  const clickKey = ( key : string) => {
+    
+    if(key==='Enter'){
+
+        if(turn > 5){
+            console.log('use all guesses')
+            return;
+        }
+
+        if(history.includes(currentGuess)){
+            console.log('already tried')
+            return
+        }
+
+        if(currentGuess.length !== 5){
+            console.log('must be 5 letter long')
+            return
+        }
+        const formatted =  formatGuess()
+        addNewGuess(formatted)
+    }
+    if (/^[A-Za-z]$/.test(key)){
+        if (currentGuess.length < 5){
+            setCurrentGuess((prev) => {
+                return prev + key.toUpperCase()
+            })
+        }
+        console.log(key)
+    }
+    if (key === "Backspace" && currentGuess.length>=1){
+        setCurrentGuess((prev)=>{
+            return prev.slice(0, -1)
+        })
+    }
+  }
+
+  return {turn, currentGuess, guesses, isCorrect, handleKeyup, clickKey, letters} // N ESQUECER DO  usedKeys
 }
 
 export default useWordle
