@@ -87,16 +87,16 @@ function removeAccents(str:string) {
     })
     console.log("giane ->", formattedGuess)
 
-    setLetters((prev) => {
-        let newKeys = [...prev]
+    // setLetters((prev) => {
+    //     let newKeys = [...prev]
         
-        formattedGuess.map(wordl => {
-            console.log(wordl)
-            // TO DO
-        })
+    //     formattedGuess.map(wordl => {
+    //         console.log(wordl)
+    //         // TO DO
+    //     })
 
-        return newKeys
-    })
+    //     return newKeys
+    // })
     // setUsedKeys((prevUsedKeys) => {
     //     let newKeys = {...prevUsedKeys}
         
@@ -160,7 +160,9 @@ function removeAccents(str:string) {
 
 
   const clickKey = ( key : string) => {
-    
+
+    if (isCorrect) return
+
     if(key==='Enter'){
 
         if(turn > 5){
