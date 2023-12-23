@@ -1,6 +1,35 @@
 import { useState } from 'react'
 
-
+const keys = [
+    { key: 'q', color: 'bg-gray-200' },
+    { key: 'w', color: 'bg-gray-200' },
+    { key: 'e', color: 'bg-gray-200' },
+    { key: 'r', color: 'bg-gray-200' },
+    { key: 't', color: 'bg-gray-200' },
+    { key: 'y', color: 'bg-gray-200' },
+    { key: 'u', color: 'bg-gray-200' },
+    { key: 'i', color: 'bg-gray-200' },
+    { key: 'o', color: 'bg-gray-200' },
+    { key: 'p', color: 'bg-gray-200' },
+    { key: 'a', color: 'bg-gray-200' },
+    { key: 's', color: 'bg-gray-200' },
+    { key: 'd', color: 'bg-gray-200' },
+    { key: 'f', color: 'bg-gray-200' },
+    { key: 'g', color: 'bg-gray-200' },
+    { key: 'h', color: 'bg-gray-200' },
+    { key: 'j', color: 'bg-gray-200' },
+    { key: 'k', color: 'bg-gray-200' },
+    { key: 'l', color: 'bg-gray-200' },
+    { key: 'ENTER', color: 'bg-gray-200' },
+    { key: 'z', color: 'bg-gray-200' },
+    { key: 'x', color: 'bg-gray-200' },
+    { key: 'c', color: 'bg-gray-200' },
+    { key: 'v', color: 'bg-gray-200' },
+    { key: 'b', color: 'bg-gray-200' },
+    { key: 'n', color: 'bg-gray-200' },
+    { key: 'm', color: 'bg-gray-200' },
+    { key: 'BACKSPACE', color: 'bg-gray-200' },
+]
 
 const useWordle = (solution: string) => {
   const [turn, setTurn] = useState(0) 
@@ -8,11 +37,15 @@ const useWordle = (solution: string) => {
   const [guesses, setGuesses] = useState([...Array(6)]) 
   const [history, setHistory] =  useState<string[]>([]) 
   const [isCorrect, setIsCorrect] = useState(false)
+  const [letters, setLetters] = useState(keys);
 //   const [usedKeys, setUsedKeys] = useState<{ [key: string]: string }>({})
 
- 
+function removeAccents(str:string) {
+    return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  } 
+
   const formatGuess = () => {
-    let solutionArray: any[] = [...solution.toUpperCase()]
+    let solutionArray: any[] = [...removeAccents(solution).toUpperCase()]
 
     let formattedGuess = [...currentGuess].map((l) => {
       return {key: l, color: 'grey'}
@@ -52,7 +85,18 @@ const useWordle = (solution: string) => {
     setTurn((prevTurn) => {
         return prevTurn+1
     })
-    
+    console.log("giane ->", formattedGuess)
+
+    setLetters((prev) => {
+        let newKeys = [...prev]
+        
+        formattedGuess.map(wordl => {
+            console.log(wordl)
+            // TO DO
+        })
+
+        return newKeys
+    })
     // setUsedKeys((prevUsedKeys) => {
     //     let newKeys = {...prevUsedKeys}
         
@@ -114,7 +158,7 @@ const useWordle = (solution: string) => {
     }
   }
 
-  return {turn, currentGuess, guesses, isCorrect,handleKeyup} // N ESQUECER DO  usedKeys
+  return {turn, currentGuess, guesses, isCorrect, handleKeyup, letters} // N ESQUECER DO  usedKeys
 }
 
 export default useWordle
