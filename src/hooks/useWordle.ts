@@ -40,6 +40,7 @@ const useWordle = (solution: string) => {
   const [history, setHistory] =  useState<string[]>([]) 
   const [isCorrect, setIsCorrect] = useState(false)
   const [letters, setLetters] = useState(keys);
+  const [alertStatus, setAlertStatus] = useState("");
 
 function removeAccents(str:string) {
     return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
@@ -115,6 +116,7 @@ function removeAccents(str:string) {
 
         if(history.includes(currentGuess)){
             console.log('already tried '+currentGuess)
+            setAlertStatus('sameWord')
             return
         }
 
@@ -187,7 +189,7 @@ function removeAccents(str:string) {
     }
   }
 
-  return {turn, currentGuess, guesses, isCorrect, handleKeyup, clickKey, letters} // N ESQUECER DO  usedKeys
+  return {turn, currentGuess, guesses, isCorrect, handleKeyup, clickKey, letters, setAlertStatus, alertStatus} // N ESQUECER DO  usedKeys
 }
 
 export default useWordle
