@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import useWordle from '../hooks/useWordle';
 import Grid from './Grid';
 import Keyboard from './Keyboard';
+import Modal from './Modal';
 
 interface WordleProps {
   solution: string;
@@ -10,6 +11,7 @@ interface WordleProps {
 const Game: React.FC<WordleProps> = ({ solution }) => {
 
   const { currentGuess, handleKeyup, guesses, isCorrect, turn, letters, clickKey} = useWordle(solution)
+  const [modalState, setModalState] = useState(false)
 
   useEffect(() => {
     window.addEventListener('keyup', handleKeyup)
@@ -28,10 +30,14 @@ const Game: React.FC<WordleProps> = ({ solution }) => {
     return () => window.removeEventListener('keyup', handleKeyup)
   }, [handleKeyup, isCorrect, turn, clickKey])
 
-
+  useEffect(() => {
+    if (isCorrect) setModalState((prev) => !prev)
+    if (turn > 5) setModalState((prev) => !prev)
+    }, [isCorrect, turn])
 
   return (
     <div>
+      { modalState ? <Modal setModalState={setModalState} solution={solution} turns={turn} isCorrect={isCorrect}  /> : <></>}
       {/* <p className="text-center m-5 font-primary">{solution}</p> */}
       <Grid currentGuess={currentGuess} guesses={guesses} turn={turn} />
       <Keyboard letters={letters} onClickKey={clickKey}/>

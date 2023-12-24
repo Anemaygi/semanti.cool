@@ -1,4 +1,5 @@
 import { useState } from 'react'
+// import wordsData from '../data/words.json'
 
 
 const keys = [
@@ -108,14 +109,22 @@ function removeAccents(str:string) {
     if(key==='Enter'){
 
         if(turn > 5){
-            console.log('use all guesses')
-            return;
+            console.log('used all guesses')
+            return
         }
 
         if(history.includes(currentGuess)){
-            console.log('already tried')
+            console.log('already tried '+currentGuess)
             return
         }
+
+        // if(!wordsData.solutions.includes(currentGuess)){
+        //     console.log('não está na lista de palavras ')
+        //     return
+        //     // fix uppercase and lowercase and accent
+        // }
+
+
 
         if(currentGuess.length !== 5){
             console.log('must be 5 letter long')
