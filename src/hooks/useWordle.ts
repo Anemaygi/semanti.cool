@@ -1,5 +1,5 @@
 import { useState } from 'react'
-// import wordsData from '../data/words.json'
+import wordsData from '../data/words.json'
 
 
 const keys = [
@@ -33,6 +33,15 @@ const keys = [
     { key: 'Backspace', color: 'white' },
 ]
 
+function removeAccentsAndUpperCase(str: string) {
+    return str
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toUpperCase()
+      .replace("Ç", "C");
+  }
+  const modifiedSolutions = wordsData.solutions.map(removeAccentsAndUpperCase);
+
 const useWordle = (solution: string) => {
   const [turn, setTurn] = useState(0) 
   const [currentGuess, setCurrentGuess] = useState('')
@@ -42,9 +51,11 @@ const useWordle = (solution: string) => {
   const [letters, setLetters] = useState(keys);
   const [alertStatus, setAlertStatus] = useState("");
 
-function removeAccents(str:string) {
-    return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-  } 
+    function removeAccents(str:string) {
+        return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    }
+    
+    
 
   const formatGuess = () => {
     let solutionArray: (string | null)[] = [...removeAccents(solution).toUpperCase()]
@@ -105,12 +116,14 @@ function removeAccents(str:string) {
     setCurrentGuess('')
   }
 
+
+  
+
   const handleKeyup = ({ key }: KeyboardEvent) => {
     
     if(key==='Enter'){
 
         if(turn > 5){
-            console.log('used all guesses')
             return
         }
 
@@ -120,11 +133,10 @@ function removeAccents(str:string) {
             return
         }
 
-        // if(!wordsData.solutions.includes(currentGuess)){
-        //     console.log('não está na lista de palavras ')
-        //     return
-        //     // fix uppercase and lowercase and accent
-        // }
+        if(!modifiedSolutions.includes(currentGuess)){
+            setAlertStatus('wordNotAccept')
+            return
+        }
 
 
 
@@ -158,12 +170,16 @@ function removeAccents(str:string) {
     if(key==='Enter'){
 
         if(turn > 5){
-            console.log('use all guesses')
             return;
         }
 
+        if(!modifiedSolutions.includes(currentGuess)){
+            setAlertStatus('wordNotAccept')
+            return
+        }
+
         if(history.includes(currentGuess)){
-            console.log('already tried')
+            setAlertStatus('sameWord')
             return
         }
 
@@ -180,7 +196,6 @@ function removeAccents(str:string) {
                 return prev + key.toUpperCase()
             })
         }
-        console.log(key)
     }
     if (key === "Backspace" && currentGuess.length>=1){
         setCurrentGuess((prev)=>{
