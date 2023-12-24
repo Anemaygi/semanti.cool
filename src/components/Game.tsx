@@ -32,7 +32,7 @@ const Game: React.FC<WordleProps> = ({ solution }) => {
 
   return (
     <div>
-      Wordle: {solution}
+      <p className="text-center m-5 font-primary">{solution}</p>
       <Grid currentGuess={currentGuess} guesses={guesses} turn={turn} />
       <Keyboard letters={letters} onClickKey={clickKey}/>
     </div>
