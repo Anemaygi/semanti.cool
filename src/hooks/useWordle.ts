@@ -95,7 +95,7 @@ function removeAccents(str:string) {
             let newColor = currentColor
             if (letter.color == "green") newColor="green-300"
             if (letter.color == "yellow" && currentColor != "green-300") newColor="yellow-300"
-            if (letter.color === "grey" && currentColor != "green-300" && currentColor != "yellow-300") newColor="red-600"
+            if (letter.color === "grey" && currentColor != "green-300" && currentColor != "yellow-300") newColor="gray-600"
             newKeys[idx] = { key: searchLetter, color: newColor }
         })
         return newKeys
