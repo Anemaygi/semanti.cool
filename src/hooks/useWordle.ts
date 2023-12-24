@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import wordsData from '../data/words.json'
 
 
 const keys = [
@@ -32,6 +33,15 @@ const keys = [
     { key: 'Backspace', color: 'white' },
 ]
 
+function removeAccentsAndUpperCase(str: string) {
+    return str
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toUpperCase()
+      .replace("Ç", "C");
+  }
+  const modifiedSolutions = wordsData.solutions.map(removeAccentsAndUpperCase);
+
 const useWordle = (solution: string) => {
   const [turn, setTurn] = useState(0) 
   const [currentGuess, setCurrentGuess] = useState('')
@@ -39,10 +49,13 @@ const useWordle = (solution: string) => {
   const [history, setHistory] =  useState<string[]>([]) 
   const [isCorrect, setIsCorrect] = useState(false)
   const [letters, setLetters] = useState(keys);
+  const [alertStatus, setAlertStatus] = useState("");
 
-function removeAccents(str:string) {
-    return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-  } 
+    function removeAccents(str:string) {
+        return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    }
+    
+    
 
   const formatGuess = () => {
     let solutionArray: (string | null)[] = [...removeAccents(solution).toUpperCase()]
@@ -103,19 +116,29 @@ function removeAccents(str:string) {
     setCurrentGuess('')
   }
 
+
+  
+
   const handleKeyup = ({ key }: KeyboardEvent) => {
     
     if(key==='Enter'){
 
         if(turn > 5){
-            console.log('use all guesses')
-            return;
+            return
         }
 
         if(history.includes(currentGuess)){
-            console.log('already tried')
+            console.log('already tried '+currentGuess)
+            setAlertStatus('sameWord')
             return
         }
+
+        if(!modifiedSolutions.includes(currentGuess)){
+            setAlertStatus('wordNotAccept')
+            return
+        }
+
+
 
         if(currentGuess.length !== 5){
             console.log('must be 5 letter long')
@@ -147,12 +170,16 @@ function removeAccents(str:string) {
     if(key==='Enter'){
 
         if(turn > 5){
-            console.log('use all guesses')
             return;
         }
 
+        if(!modifiedSolutions.includes(currentGuess)){
+            setAlertStatus('wordNotAccept')
+            return
+        }
+
         if(history.includes(currentGuess)){
-            console.log('already tried')
+            setAlertStatus('sameWord')
             return
         }
 
@@ -169,7 +196,6 @@ function removeAccents(str:string) {
                 return prev + key.toUpperCase()
             })
         }
-        console.log(key)
     }
     if (key === "Backspace" && currentGuess.length>=1){
         setCurrentGuess((prev)=>{
@@ -178,7 +204,7 @@ function removeAccents(str:string) {
     }
   }
 
-  return {turn, currentGuess, guesses, isCorrect, handleKeyup, clickKey, letters} // N ESQUECER DO  usedKeys
+  return {turn, currentGuess, guesses, isCorrect, handleKeyup, clickKey, letters, setAlertStatus, alertStatus} // N ESQUECER DO  usedKeys
 }
 
 export default useWordle
