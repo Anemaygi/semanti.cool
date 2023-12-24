@@ -14,7 +14,7 @@ function App() {
 
   return (
     <div>
-      <div className="w-full p-8 flex flex-col items-center justify-center">
+      <div className="w-full p-8 flex flex-col items-center justify-center bg-[#3d3e5d] min-h-screen text-white">
         <p>Semanti.cool</p>
         <br/>
         { solution && <Game solution={solution} />}

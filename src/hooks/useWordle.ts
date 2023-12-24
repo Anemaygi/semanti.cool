@@ -2,34 +2,34 @@ import { useState } from 'react'
 
 
 const keys = [
-    { key: 'q', color: 'bg-gray-200' },
-    { key: 'w', color: 'bg-gray-200' },
-    { key: 'e', color: 'bg-gray-200' },
-    { key: 'r', color: 'bg-gray-200' },
-    { key: 't', color: 'bg-gray-200' },
-    { key: 'y', color: 'bg-gray-200' },
-    { key: 'u', color: 'bg-gray-200' },
-    { key: 'i', color: 'bg-gray-200' },
-    { key: 'o', color: 'bg-gray-200' },
-    { key: 'p', color: 'bg-gray-200' },
-    { key: 'a', color: 'bg-gray-200' },
-    { key: 's', color: 'bg-gray-200' },
-    { key: 'd', color: 'bg-gray-200' },
-    { key: 'f', color: 'bg-gray-200' },
-    { key: 'g', color: 'bg-gray-200' },
-    { key: 'h', color: 'bg-gray-200' },
-    { key: 'j', color: 'bg-gray-200' },
-    { key: 'k', color: 'bg-gray-200' },
-    { key: 'l', color: 'bg-gray-200' },
-    { key: 'Enter', color: 'bg-gray-200' },
-    { key: 'z', color: 'bg-gray-200' },
-    { key: 'x', color: 'bg-gray-200' },
-    { key: 'c', color: 'bg-gray-200' },
-    { key: 'v', color: 'bg-gray-200' },
-    { key: 'b', color: 'bg-gray-200' },
-    { key: 'n', color: 'bg-gray-200' },
-    { key: 'm', color: 'bg-gray-200' },
-    { key: 'Backspace', color: 'bg-gray-200' },
+    { key: 'q', color: 'white' },
+    { key: 'w', color: 'white' },
+    { key: 'e', color: 'white' },
+    { key: 'r', color: 'white' },
+    { key: 't', color: 'white' },
+    { key: 'y', color: 'white' },
+    { key: 'u', color: 'white' },
+    { key: 'i', color: 'white' },
+    { key: 'o', color: 'white' },
+    { key: 'p', color: 'white' },
+    { key: 'a', color: 'white' },
+    { key: 's', color: 'white' },
+    { key: 'd', color: 'white' },
+    { key: 'f', color: 'white' },
+    { key: 'g', color: 'white' },
+    { key: 'h', color: 'white' },
+    { key: 'j', color: 'white' },
+    { key: 'k', color: 'white' },
+    { key: 'l', color: 'white' },
+    { key: 'Enter', color: 'white' },
+    { key: 'z', color: 'white' },
+    { key: 'x', color: 'white' },
+    { key: 'c', color: 'white' },
+    { key: 'v', color: 'white' },
+    { key: 'b', color: 'white' },
+    { key: 'n', color: 'white' },
+    { key: 'm', color: 'white' },
+    { key: 'Backspace', color: 'white' },
 ]
 
 const useWordle = (solution: string) => {
@@ -93,9 +93,9 @@ function removeAccents(str:string) {
             const idx = newKeys.findIndex((item) => item.key === searchLetter);
             const currentColor = newKeys[idx].color
             let newColor = currentColor
-            if (letter.color == "green") newColor="bg-green-300"
-            if (letter.color == "yellow" && currentColor != "bg-green-300") newColor="bg-yellow-300"
-            if (letter.color === "grey" && currentColor != "bg-green-300" && currentColor != "bg-yellow-300") newColor="bg-gray-600"
+            if (letter.color == "green") newColor="green-300"
+            if (letter.color == "yellow" && currentColor != "green-300") newColor="yellow-300"
+            if (letter.color === "grey" && currentColor != "green-300" && currentColor != "yellow-300") newColor="red-600"
             newKeys[idx] = { key: searchLetter, color: newColor }
         })
         return newKeys
