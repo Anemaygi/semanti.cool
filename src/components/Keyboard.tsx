@@ -25,10 +25,10 @@ const Keyboard: React.FC<KeyboardProps> = ({ letters, onClickKey }) => {
       };
     
     return (
-        <div className="my-10 flex-col w-full ">
+        <div className="my-10 flex-col w-full">
             <div className="flex items-center justify-center">
                 {letters.slice(0, 10).map((letter) => (
-                    <div className={`py-4 cursor-pointer shadow-lg font-primary font-black px-3 text-sm m-1 border rounded flex items-center justify-center`} 
+                    <div className={`md:py-4 md:px-3 p-2 cursor-pointer shadow-lg font-primary font-black  text-sm m-1 border rounded flex items-center justify-center`} 
                     style={{ borderColor: getColorValue(letter.color) }}
                         key={letter.key}
                         onClick={()=>onClickKey(letter.key)}
@@ -39,7 +39,7 @@ const Keyboard: React.FC<KeyboardProps> = ({ letters, onClickKey }) => {
             </div>
             <div className="flex items-center justify-center">
                 {letters.slice(10, 19).map((letter) => (
-                    <div className={`py-4 cursor-pointer shadow-lg font-primary font-black px-3 m-1 text-sm border rounded flex items-center justify-center`} key={letter.key}
+                    <div className={`md:py-4 md:px-3 p-2 cursor-pointer shadow-lg font-primary font-black m-1 text-sm border rounded flex items-center justify-center`} key={letter.key}
                     style={{ borderColor: getColorValue(letter.color) }}    
                     onClick={()=>onClickKey(letter.key)}
                         >
@@ -49,7 +49,7 @@ const Keyboard: React.FC<KeyboardProps> = ({ letters, onClickKey }) => {
             </div>
             <div className="flex items-center justify-center">
                 {letters.slice(19).map((letter) => (
-                    <div className={`py-4 cursor-pointer shadow-lg font-primary font-black px-3 m-1 text-sm border rounded flex items-center justify-center`} key={letter.key}
+                    <div className={`md:py-4 md:px-3 p-2 cursor-pointer shadow-lg font-primary font-black m-1 text-sm border rounded flex items-center justify-center`} key={letter.key}
                     style={{ borderColor: getColorValue(letter.color) }}    
                     onClick={()=>onClickKey(letter.key)}
                         >
